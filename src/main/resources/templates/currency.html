@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Currency Converter</title>
+    <link href="style.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+<h1>Конвертер</h1>
+
+    <div class="row">
+    <form method="GET" th:action="@{/currency}" id="registerForm">
+        <div class="form-group">
+        <div class="col-sm-3">
+            <select class="form-control" th:name="originalCurrency" id="targetVal">
+                <option label="RUB(Российский рубль)" th:value="1"></option>
+                <option th:selected="${history.originalCurrency == valute.getId()}" th:each="valute : ${currencyList}" th:label="${valute.name}" th:value="${valute.id}"></option>
+            </select><br>
+            <input class="form-control" th:value="${history.initialAmount}" th:type="text" name="initialAmount" id="targetValue">
+        </div>
+        <div class="col-sm-3">
+            <select class="form-control" th:name="targerCurrency">
+                <option label="RUB(Российский рубль)" th:value="1"></option>
+                <option th:selected="${history.targerCurrency == valute.getId()}"  th:each="valute : ${currencyList}" th:label="${valute.name}" th:value="${valute.id}"></option>
+            </select><br>
+            <input class="form-control" th:value="${history.amountReceived}" type="number" name="amountReceived" id="rubleValue" disabled>
+        </div>
+        <input class="btn btn-success" type="submit" name="Конвертировать" value="Конвертировать">
+        </div>
+    </form>
+    </div>
+<h1>История</h1>
+<table class="table table-bordered">
+    <thead>
+    <th>Исходная валюта</th>
+    <th>Целевая валюта</th>
+    <th>Исходная сумма</th>
+    <th>Получаемая сумма</th>
+    <th>Дата</th>
+    </thead>
+    <tbody>
+    <tr th:each="history : ${historyList}">
+        <td th:text="${history.getOriginalCurrencyName()}"></td>
+        <td th:text="${history.getTargetCurrencyName()}"></td>
+        <td th:text="${history.getInitialAmount()}"></td>
+        <td th:text="${history.getAmountReceived()}"></td>
+        <td th:text="${history.getDate()}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>
+
+<!--
+<script>
+    function convert() {
+        let inputF = document.getElementById("targetValue").value;
+        console.log(inputF);
+
+        let selEl = document.getElementById("targetVal");
+        let selectedCurrValue = selEl.options[selEl.selectedIndex].value;
+        console.log(selectedCurrValue);
+
+        console.log(inputF * selectedCurrValue);
+
+        let ruble = document.getElementById("rubleValue");
+        console.log(inputF);
+
+        ruble.value = inputF * selectedCurrValue;
+    }
+</script>-->

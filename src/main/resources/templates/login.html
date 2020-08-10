@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h1>Login</h1>
+        <p>Нет аккаунта: Перейти
+            <a th:href="@{/register}">сюда</a> для регистрации</p>
+        <!-- tag::thAction[] -->
+        <form class="form-horizontal" method="POST" th:action="@{/login}" id="loginForm">
+            <div class="form-group">
+            <!-- end::thAction[] -->
+            <input class="form-control" placeholder="Enter username" type="text" name="username" id="username"/><br/>
+            <input class="form-control" placeholder="Enter password" type="password" name="password" id="password"/><br/>
+            <input type="submit" value="Login"/>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
